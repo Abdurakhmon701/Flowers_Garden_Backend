@@ -15,7 +15,30 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from api.views import CategoryView,ProductView,\
+CategoryAllView,ProductAllView,BasketView,BasketAllView,delete_object,delete_objects_all
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+from django.urls import path,include
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('category',CategoryAllView),
+router.register('get_product',ProductAllView),
+router.register('basket',BasketView)
+
+
 
 urlpatterns = [
+    path('',include(router.urls)),  
     path('admin/', admin.site.urls),
-]
+    path('category/<int:pk>/',CategoryView.as_view()),
+    path('product/<int:pk>/',ProductView.as_view()),
+    path('basket_all/<int:pk>/',BasketAllView.as_view()),
+    path('basket_delete/<str:tel_id>/<str:pk>/',delete_object),
+    path('basket_delete_all/<str:telegram_id>/',delete_objects_all)
+
+]+static(settings.MEDIA_URL,
+    document_root=settings.MEDIA_ROOT)

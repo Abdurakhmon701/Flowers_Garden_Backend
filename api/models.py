@@ -19,3 +19,11 @@ class ProductModel(models.Model):
 	def __str__(self):
 		return self.product_name
 
+class BasketModel(models.Model):#korzina
+	telegram_id = models.CharField(max_length=30)
+	product_id = models.TextField()
+	product_name = models.CharField(max_length=150)
+	product_price = models.CharField(max_length=20)
+	count = models.TextField()
+
+
