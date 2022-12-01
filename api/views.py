@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from .models import CategoryModel,ProductModel,BasketModel
-from .serializers import CategorySerializers,ProductSerializers,BasketSerializers
+from .serializers import CategorySerializers,ProductSerializers,BasketSerializers,PUTBasketSerializers
 from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import api_view
-
+from rest_framework.parsers import JSONParser 
 from rest_framework import status
 
 class CategoryView(APIView):
@@ -88,6 +88,21 @@ def delete_objects_all(request, telegram_id):
 	else:
 		return Response({'message':"Mahsulot topilmadi"},status = status.HTTP_404_NOT_FOUND)
 
+
+
+
+@api_view(['PUT'])
+def put_object(request, tel_id, product):
+	try:
+		snippet = BasketModel.objects.get(telegram_id=tel_id,product_id=product)
+		print("SSSSS",snippet)
+	except BasketModel.DoesNotExist:
+		return Response(status=status.HTTP_404_NOT_FOUND)
+	if request.method == 'PUT':
+		serializer = PUTBasketSerializers(snippet, data=request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 	
-
-

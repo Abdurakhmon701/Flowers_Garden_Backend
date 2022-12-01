@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from api.views import CategoryView,ProductView,\
-CategoryAllView,ProductAllView,BasketView,BasketAllView,delete_object,delete_objects_all
+CategoryAllView,ProductAllView,BasketView,BasketAllView,delete_object,delete_objects_all,put_object
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -38,7 +38,8 @@ urlpatterns = [
     path('product/<int:pk>/',ProductView.as_view()),
     path('basket_all/<int:pk>/',BasketAllView.as_view()),
     path('basket_delete/<str:tel_id>/<str:pk>/',delete_object),
-    path('basket_delete_all/<str:telegram_id>/',delete_objects_all)
+    path('basket_delete_all/<str:telegram_id>/',delete_objects_all),
+    path('put_card/<int:tel_id>/<int:product>/',put_object)
 
 ]+static(settings.MEDIA_URL,
     document_root=settings.MEDIA_ROOT)

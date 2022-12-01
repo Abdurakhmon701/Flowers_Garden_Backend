@@ -15,3 +15,8 @@ class BasketSerializers(serializers.ModelSerializer):
 	class Meta:
 		model = BasketModel
 		fields = '__all__'
+
+class PUTBasketSerializers(serializers.ModelSerializer):
+	class Meta:
+		model = BasketModel
+		fields = ['count']

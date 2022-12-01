@@ -27,3 +27,16 @@ class BasketModel(models.Model):#korzina
 	count = models.TextField()
 
 
+
+class UserModel(models.Model):
+	telegram_id = models.CharField(max_length=30)
+	username = models.CharField(max_length=30)
+
+class OrderModel(models.Model):
+	telegram_id = models.CharField(max_length=30)
+	username = models.CharField(max_length=30)
+	telephone_number = models.CharField(max_length=20)
+	location_x = models.
+	location_y = models.
+
+# startni bosganda UserModelga userni va username ni qo'shish kerak
