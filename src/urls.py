@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from api.views import CategoryView,ProductView,\
-CategoryAllView,ProductAllView,BasketView,BasketAllView,delete_object,delete_objects_all,put_object
+from api.views import *
 
+ 
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -27,7 +27,8 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register('category',CategoryAllView),
 router.register('get_product',ProductAllView),
-router.register('basket',BasketView)
+router.register('basket',BasketView),
+router.register('order',OrderPostView),
 
 
 
@@ -39,7 +40,18 @@ urlpatterns = [
     path('basket_all/<int:pk>/',BasketAllView.as_view()),
     path('basket_delete/<str:tel_id>/<str:pk>/',delete_object),
     path('basket_delete_all/<str:telegram_id>/',delete_objects_all),
-    path('put_card/<int:tel_id>/<int:product>/',put_object)
+    path('user/',UserView.as_view()),
+    path('user_id/<int:telegram_id>/',get_user),
+
+
+
+
+
+
+
+    
+    # path('order_id/<int:telegram_id>',get_information_from_order),
+    # path('order_id/<int:pk>',OrderAllView.as_view())
 
 ]+static(settings.MEDIA_URL,
     document_root=settings.MEDIA_ROOT)

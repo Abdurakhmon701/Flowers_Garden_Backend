@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import CategoryModel,ProductModel,BasketModel
+from api.models import CategoryModel,ProductModel,BasketModel,UserModel,OrderModel
 
 class CategorySerializers(serializers.ModelSerializer):
 	class Meta:
@@ -20,3 +20,21 @@ class PUTBasketSerializers(serializers.ModelSerializer):
 	class Meta:
 		model = BasketModel
 		fields = ['count']
+
+class UserSerializers(serializers.ModelSerializer):
+	class Meta:
+		model = UserModel
+		fields = '__all__'
+
+class OrderSerializers(serializers.ModelSerializer):
+	class Meta:
+		model = OrderModel
+		fields = '__all__'
+
+	def create(self, validated_data):
+		return OrderModel.objects.create(**validated_data)
+
+# class BasketSerializersForPayment(serializers.ModelSerializer):
+# 	class Meta:
+# 		model = BasketModel
+# 		fields = ['product_name']
